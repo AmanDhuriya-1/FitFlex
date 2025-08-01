@@ -17,3 +17,25 @@ Extras: Flash messages, search, and optional authentication for secure access.
 Tech Stack: Django, SQLite, Bootstrap
 
 A clean, fully functional CRUD-based Django project – ideal for fitness management systems, portfolio showcases, and interview preparation.
+
+Setup
+
+Steps to Run
+python -m venv myenv
+
+source myenv/bin/activate
+
+Copy the downloaded project files and paste them next to the myenv folder
+
+pip install -r requirements.txt
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py runserver 4467
+
+Important Note:
+Do NOT use the default port (8000).
+
+Always run the server on port 4456 (or the one specified in settings), otherwise CSS and static files will not load properly.
