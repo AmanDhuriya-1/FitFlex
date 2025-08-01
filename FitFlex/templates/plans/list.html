@@ -1,0 +1,77 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+    .container h2 {
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 30px;
+    }
+    .card {
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .card-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #007bff;
+    }
+    .card-text {
+        color: #555;
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+    .card ul {
+        padding-left: 18px;
+        margin-bottom: 10px;
+    }
+    .card ul li {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 3px;
+    }
+    .btn-primary {
+        background: #007bff;
+        border: none;
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: 0.3s ease;
+    }
+    .btn-primary:hover {
+        background: #0056b3;
+    }
+</style>
+
+<div class="container mt-4">
+    <h2 class="text-center">Workout Plans</h2>
+    <div class="row">
+        {% for plan in plans %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ plan.plan_name }}</h5>
+                    <p class="card-text">{{ plan.plan_description }}</p>
+                    <p><strong>Weekly Breakdown:</strong></p>
+                    <ul>
+                        {% for day in plan.weekly_breakdown %}
+                            <li>{{ day }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p><strong>Goal:</strong> {{ plan.goals }}</p>
+                    <!-- Add to My Plan button -->
+                    <a href="{% url 'assign_plan' plan.id %}" class="btn btn-primary w-100">
+                        Add to My Plan
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

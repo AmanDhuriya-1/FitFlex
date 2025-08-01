@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<style>
+    /* Home container styling */
+    .home-container {
+        text-align: center;
+        padding: 50px 20px;
+    }
+
+    .home-container h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #222;
+        margin-bottom: 15px;
+    }
+
+    .home-container p.lead {
+        font-size: 1.3rem;
+        color: #555;
+        margin-bottom: 30px;
+    }
+
+    /* Image styling */
+    .home-container img {
+        max-width: 70%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease;
+    }
+
+    .home-container img:hover {
+        transform: scale(1.03);
+    }
+</style>
+
+<div class="home-container">
+    <h1>Welcome to FitFlex</h1>
+    <p class="lead">Manage Clients, Workout Plans, and Track Progress easily!</p>
+    <img src="{% static 'victor-freitas-WvDYdXDzkhs-unsplash.jpg' %}" alt="FitFlex Gym">
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+    .assign-container {
+        max-width: 500px;
+        margin: 50px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    .assign-container h2 {
+        font-weight: 700;
+        text-align: center;
+        color: #333;
+        margin-bottom: 25px;
+    }
+    label {
+        font-weight: 600;
+        color: #444;
+    }
+    .form-select {
+        border-radius: 8px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        transition: 0.3s;
+    }
+    .form-select:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 8px rgba(40,167,69,0.3);
+    }
+    .btn-success {
+        background: #28a745;
+        border: none;
+        font-weight: 600;
+        padding: 12px;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+    .btn-success:hover {
+        background: #218838;
+    }
+</style>
+
+<div class="assign-container">
+    <h2>Assign "{{ plan.plan_name }}" to Client</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="client" class="form-label">Select Client</label>
+            <select class="form-select" name="client" id="client" required>
+                <option value="">-- Choose a Client --</option>
+                {% for c in clients %}
+                    <option value="{{ c.id }}">{{ c.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Assign Plan</button>
+    </form>
+</div>
+{% endblock %}

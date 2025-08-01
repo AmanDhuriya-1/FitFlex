@@ -1,0 +1,98 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+    .add-client-container {
+        max-width: 650px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+    .add-client-container h2 {
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+    label {
+        font-weight: 600;
+        color: #444;
+    }
+    .form-control {
+        border-radius: 8px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        transition: 0.3s;
+    }
+    .form-control:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 8px rgba(40,167,69,0.2);
+    }
+    .btn {
+        padding: 10px 18px;
+        font-weight: 600;
+        border-radius: 8px;
+    }
+    .btn-success {
+        background: #28a745;
+        border: none;
+    }
+    .btn-success:hover {
+        background: #218838;
+    }
+    .btn-secondary {
+        background: #6c757d;
+        border: none;
+    }
+    .btn-secondary:hover {
+        background: #565e64;
+    }
+</style>
+
+<div class="add-client-container">
+    <h2>Add Client</h2>
+    <form method="post">{% csrf_token %}
+        <div class="mb-3">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Phone</label>
+            <input type="text" name="phone" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Address</label>
+            <input type="text" name="address" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label>Age</label>
+            <input type="number" name="age" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Gender</label>
+            <select name="gender" class="form-control">
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Joining Date</label>
+            <input type="date" name="joining_date" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label>Due Date</label>
+            <input type="date" name="due_date" class="form-control">
+        </div>
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success">Add</button>
+            <a href="{% url 'client_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

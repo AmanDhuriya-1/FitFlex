@@ -1,0 +1,80 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+    .progress-container {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .progress-container h2 {
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .table {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .table thead {
+        background: #007bff;
+        color: #fff;
+    }
+    .table th, .table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+    .btn-primary {
+        background: #007bff;
+        border: none;
+    }
+    .btn-warning {
+        background: #ffc107;
+        border: none;
+        color: #000;
+    }
+    .btn-danger {
+        background: #dc3545;
+        border: none;
+    }
+</style>
+
+<div class="container mt-4 progress-container">
+    <h2 class="text-center">Progress Tracker</h2>
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'add_progress' %}" class="btn btn-primary">+ Add Progress</a>
+    </div>
+    <table class="table table-striped shadow-sm">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Date</th>
+                <th>Weight</th>
+                <th>BMI</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in progress %}
+            <tr>
+                <td>{{ p.client.name }}</td>
+                <td>{{ p.date }}</td>
+                <td>{{ p.weight }}</td>
+                <td>{{ p.bmi }}</td>
+                <td>{{ p.notes }}</td>
+                <td>
+                    <a href="{% url 'edit_progress' p.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'delete_progress' p.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Delete this record?');">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center text-muted">No progress records found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

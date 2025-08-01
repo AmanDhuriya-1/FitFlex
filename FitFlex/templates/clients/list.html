@@ -1,0 +1,106 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+    .clients-container {
+        margin-top: 40px;
+        background: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+    .clients-container h2 {
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .btn-primary {
+        border-radius: 8px;
+        font-weight: 600;
+        padding: 10px 16px;
+    }
+    .table {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .table thead {
+        background: #007bff;
+        color: #fff;
+    }
+    .table th {
+        text-align: center;
+        font-weight: 600;
+    }
+    .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+    .badge {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+        border-radius: 6px;
+    }
+    .btn-sm {
+        border-radius: 6px;
+        font-weight: 600;
+        padding: 5px 10px;
+        margin: 2px;
+    }
+    .btn-warning {
+        background-color: #ffc107;
+        border: none;
+        color: #000;
+    }
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+    }
+    .btn-warning:hover { background-color: #e0a800; }
+    .btn-danger:hover { background-color: #c82333; }
+</style>
+
+<div class="container clients-container">
+    <h2>Clients</h2>
+    <a href="{% url 'add_client' %}" class="btn btn-primary mb-3">+ Add Client</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Joining Date</th>
+                <th>Plan</th>
+                <th>Expiry</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in clients_data %}
+            <tr>
+                <td>{{ data.client.name }}</td>
+                <td>{{ data.client.email }}</td>
+                <td>{{ data.client.phone }}</td>
+                <td>{{ data.client.joining_date }}</td>
+                <td>{{ data.plan.plan_name|default:"No Plan" }}</td>
+                <td>{{ data.expiry_date|date:"Y-m-d"|default:"-" }}</td>
+                <td>
+                    {% if data.status == "Active" %}
+                        <span class="badge bg-success">Active</span>
+                    {% elif data.status == "Expired" %}
+                        <span class="badge bg-danger">Expired</span>
+                    {% else %}
+                        <span class="badge bg-secondary">No Plan</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'edit_client' data.client.id %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'delete_client' data.client.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="8" class="text-center">No clients found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
